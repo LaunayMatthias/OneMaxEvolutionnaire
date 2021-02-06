@@ -18,4 +18,8 @@ public class RandomSelection implements Selection {
 		return individus;
 	}
 
+	@Override
+	public String toString() {
+		return "RANDOM";
+	}
 }

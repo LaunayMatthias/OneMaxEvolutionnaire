@@ -14,4 +14,9 @@ public class ThreeFlipMutation implements Mutation {
 		});
 	return individual;
 	}
+	
+	@Override
+	public String toString() {
+		return "3FLIp";
+	}
 }

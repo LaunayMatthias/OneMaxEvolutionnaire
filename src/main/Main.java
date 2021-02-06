@@ -12,7 +12,7 @@ public class Main {
 		long start = System.currentTimeMillis();;
 		
 
-		OneMaxAlgo onemax = new OneMaxAlgo(20, 100, 1000, "BEST", "UNIFORME", "BITFLIP", "", 0.5, 0.5);
+		OneMaxAlgo onemax = new OneMaxAlgo(20, 100, 2000, "BEST", "UNIFORME", "BITFLIP", "", 0.5, 0.5);
 		onemax.run();
 		
 	    long end = System.currentTimeMillis();;

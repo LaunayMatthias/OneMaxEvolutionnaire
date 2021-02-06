@@ -26,4 +26,8 @@ public class CroisementUniforme implements Croisement {
 		return res;
 	}
 
+	@Override
+	public String toString() {
+		return "UNIFORME";
+	}
 }

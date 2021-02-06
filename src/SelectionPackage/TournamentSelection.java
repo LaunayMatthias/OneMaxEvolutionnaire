@@ -27,5 +27,10 @@ public class TournamentSelection implements Selection {
 		bestTwo.add(tournament.get(tournament.size()-2));
 		return bestTwo;
 	}
+	
+	@Override
+	public String toString() {
+		return "TOURNAMENT";
+	}
 
 }

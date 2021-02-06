@@ -15,5 +15,10 @@ public class BitFlipMutation implements Mutation {
 		}
 		return individual;
 	}
+	
+	@Override
+	public String toString() {
+		return "BITFLIP";
+	}
 
 }

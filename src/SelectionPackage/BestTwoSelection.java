@@ -20,4 +20,8 @@ public class BestTwoSelection implements Selection {
 		return bestTwo;
 	}
 
+	@Override
+	public String toString() {
+		return "BEST";
+	}
 }

@@ -12,4 +12,8 @@ public class OneFlipMutation implements Mutation {
 		return individual;
 	}
 
+	@Override
+	public String toString() {
+		return "1FLIP";
+	}
 }

@@ -15,4 +15,8 @@ public class FiveFlipMutation implements Mutation {
 	return individual;
 	}
 
+	@Override
+	public String toString() {
+		return "5FLIP";
+	}
 }

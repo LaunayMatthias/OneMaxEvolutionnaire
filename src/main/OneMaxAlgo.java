@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.SplittableRandom;
 
 import CroisementPackage.Croisement;
 import CroisementPackage.CroisementFactory;
@@ -39,6 +40,7 @@ public class OneMaxAlgo {
 	private boolean isDone = false;
 	
 	private double tauxMutation, tauxCroisement;
+	private SplittableRandom random = new SplittableRandom();
 	
 	FileWriter sortie = null;
 	
@@ -67,7 +69,8 @@ public class OneMaxAlgo {
 		
 		//fichier de sortie
 		try {
-			sortie = new FileWriter("sortie.txt");
+			String filename = typeCroisement.toString() + "_" + typeMutation.toString() + "_" + typeSelection.toString() + "_" + tauxCroisement + "_" + tauxMutation;
+			sortie = new FileWriter(filename+".txt");
 			sortie.write("0 0 0\n");
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -91,8 +94,9 @@ public class OneMaxAlgo {
 			System.out.println("=================================================");
 
 			//croisement
-			//AJOUTER TAUX DE CROISEMENT 
-			ArrayList<int[]> children = typeCroisement.croiser(parent1, parent2);
+			ArrayList<int[]> children = parents;
+			if(random.nextInt(1, 101) <= tauxCroisement*100) //pourcentage de chance de croisement
+				children = typeCroisement.croiser(parent1, parent2);
 			int[] child1 = children.get(0);
 			int[] child2 = children.get(1);
 			System.out.println("croisement :");
@@ -101,16 +105,17 @@ public class OneMaxAlgo {
 			System.out.println("=================================================");
 
 			// mutation
-			//AJOUTER TAUX DE MUTATION 
-			child1 = typeMutation.muter(child1);
-			child2 = typeMutation.muter(child2);
+			if(random.nextInt(1, 101) <= tauxMutation*100) { //pourcentage de chance de croisement
+				child1 = typeMutation.muter(child1);
+				child2 = typeMutation.muter(child2);
+			}
 			System.out.println("mutation :");
 			afficheIndividu(child1);
 			afficheIndividu(child2);
 			System.out.println("=================================================");
 			
 			//insertion
-			this.population.remove(0); //on retire les 2 pires individus
+			this.population.remove(0); //on retire les 2 pires individus = les 2 premiers de la liste
 			this.population.remove(0);
 			this.population.add(child1);
 			this.population.add(child2);

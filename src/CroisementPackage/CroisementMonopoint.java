@@ -26,5 +26,10 @@ public class CroisementMonopoint implements Croisement {
 		res.add(child2);
 		return res;
 	}
+	
+	@Override
+	public String toString() {
+		return "MONOPOINT";
+	}
 
 }
