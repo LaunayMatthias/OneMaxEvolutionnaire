@@ -18,4 +18,18 @@ public class MutationFactory {
 		}
 		return null;
 	}
+	
+	
+	public Mutation getMutation(int mutation) {
+		if(mutation == 0){
+			return new BitFlipMutation();
+		} else if(mutation == 1) {
+			return new OneFlipMutation();
+		} else if(mutation == 2) {
+			return new ThreeFlipMutation();
+		} else if(mutation == 3) {
+			return new FiveFlipMutation();
+		}
+		return null;
+	}
 }

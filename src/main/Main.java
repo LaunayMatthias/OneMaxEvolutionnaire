@@ -12,8 +12,11 @@ public class Main {
 		long start = System.currentTimeMillis();;
 		
 
-		OneMaxAlgo onemax = new OneMaxAlgo(20, 100, 2000, "BEST", "UNIFORME", "BITFLIP", "", 0.5, 0.5);
-		onemax.run();
+		for(int i=0; i<20; i++) {
+			OneMaxAlgo onemax = new OneMaxAlgo(20, 100, 2000, "RANDOM", "UNIFORME", "BITFLIP", "", 0.5, 0.5, true, i);
+			onemax.run();
+		}
+		
 		
 	    long end = System.currentTimeMillis();;
 	    System.out.println("time : "+(end - start) + " ms");

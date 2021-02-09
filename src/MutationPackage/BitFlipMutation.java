@@ -18,7 +18,16 @@ public class BitFlipMutation implements Mutation {
 	
 	@Override
 	public String toString() {
-		return "BITFLIP";
+		return getType().toString();
 	}
 
+	@Override
+	public MutationType getType() {
+		return MutationType.BITFLIP;
+	}
+
+	@Override
+	public int getNumber() {
+		return 0;
+	}
 }

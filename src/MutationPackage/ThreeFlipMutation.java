@@ -17,6 +17,16 @@ public class ThreeFlipMutation implements Mutation {
 	
 	@Override
 	public String toString() {
-		return "3FLIp";
+		return getType().toString();
+	}
+	
+	@Override
+	public MutationType getType() {
+		return MutationType.THREEFLIP;
+	}
+	
+	@Override
+	public int getNumber() {
+		return 2;
 	}
 }

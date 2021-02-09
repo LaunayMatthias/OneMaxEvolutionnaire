@@ -41,17 +41,25 @@ public class OneMaxAlgo {
 	
 	private double tauxMutation, tauxCroisement;
 	private SplittableRandom random = new SplittableRandom();
+	private int test;
+	private boolean apprentissage;
+	
+	private UBCAlgorithm ubc;
 	
 	FileWriter sortie = null;
 	
 	OneMaxAlgo(int taillePopulation, int n, int nbGenerations, String selection, String croisement, String mutation, String insertion,
-			double tauxCroisement, double tauxMutation){
+			double tauxCroisement, double tauxMutation, boolean apprentissage, int test){
 		
+		this.apprentissage = apprentissage;
+		this.test = test;
 		this.n = n;
 		this.popSize = taillePopulation;
 		this.maxGen = nbGenerations;
 		this.tauxCroisement = tauxCroisement;
 		this.tauxMutation = tauxMutation;
+		
+		this.ubc = new UBCAlgorithm(n);
 		
 		typeCroisement = croisementFactory.getCroisement(croisement);
 		typeMutation = mutationFactory.getMutation(mutation);
@@ -70,8 +78,8 @@ public class OneMaxAlgo {
 		//fichier de sortie
 		try {
 			String filename = typeCroisement.toString() + "_" + typeMutation.toString() + "_" + typeSelection.toString() + "_" + tauxCroisement + "_" + tauxMutation;
-			sortie = new FileWriter(filename+".txt");
-			sortie.write("0 0 0\n");
+			sortie = new FileWriter(filename+"_"+test+".dat");
+			sortie.write("0 0\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -85,13 +93,13 @@ public class OneMaxAlgo {
 		while(!this.isDone && iteration != this.maxGen) {
 			
 			//selection
-			System.out.println("parents selectionnes :");
+//			System.out.println("parents selectionnes :");
 			ArrayList<int[]> parents = typeSelection.selectionner(population);
 			int[] parent1 = parents.get(0);
 			int[] parent2 = parents.get(1);
-			afficheIndividu(parent1);
-			afficheIndividu(parent2);
-			System.out.println("=================================================");
+//			afficheIndividu(parent1);
+//			afficheIndividu(parent2);
+//			System.out.println("=================================================");
 
 			//croisement
 			ArrayList<int[]> children = parents;
@@ -99,20 +107,22 @@ public class OneMaxAlgo {
 				children = typeCroisement.croiser(parent1, parent2);
 			int[] child1 = children.get(0);
 			int[] child2 = children.get(1);
-			System.out.println("croisement :");
-			afficheIndividu(child1);
-			afficheIndividu(child2);
-			System.out.println("=================================================");
+//			System.out.println("croisement :");
+//			afficheIndividu(child1);
+//			afficheIndividu(child2);
+//			System.out.println("=================================================");
 
 			// mutation
 			if(random.nextInt(1, 101) <= tauxMutation*100) { //pourcentage de chance de croisement
+				if(this.apprentissage)
+					typeMutation = mutationFactory.getMutation(ubc.run(typeMutation.getNumber(), iteration, children));
 				child1 = typeMutation.muter(child1);
 				child2 = typeMutation.muter(child2);
 			}
-			System.out.println("mutation :");
-			afficheIndividu(child1);
-			afficheIndividu(child2);
-			System.out.println("=================================================");
+//			System.out.println("mutation :");
+//			afficheIndividu(child1);
+//			afficheIndividu(child2);
+//			System.out.println("=================================================");
 			
 			//insertion
 			this.population.remove(0); //on retire les 2 pires individus = les 2 premiers de la liste
@@ -128,20 +138,21 @@ public class OneMaxAlgo {
 			});
 			
 			int bestIndividualFitness = bestIndividualFitnessEvaluation(population);
-			int populationFitness = globalFitnessEvaluation(population);
-			System.out.println("BEST FITTED :" + bestIndividualFitness);
-			System.out.println("GLOBAL FITNESS : " + populationFitness);
+//			int populationFitness = globalFitnessEvaluation(population);
+//			System.out.println("BEST FITTED :" + bestIndividualFitness);
+//			System.out.println("GLOBAL FITNESS : " + populationFitness);
 			
 			iteration++;
 			
 			//ecriture dans le fichier de sortie
-			sortie.write(iteration + " " +bestIndividualFitness+ " "+ populationFitness+ "\n");
+			sortie.write(iteration + " " +bestIndividualFitness /*+typeMutation.getType()+ " " + populationFitness */+ "\n");
 			
 			
 		}
 		if(this.maxGen == iteration) {
 			System.out.println("nombre max de generations atteint");
 		}
+//		ubc.showResults();
 		sortie.close();
 		affichePop();
 		System.out.println("nbIt = "+iteration);

@@ -17,6 +17,17 @@ public class FiveFlipMutation implements Mutation {
 
 	@Override
 	public String toString() {
-		return "5FLIP";
+		return getType().toString();
+	}
+	
+	@Override
+	public MutationType getType() {
+		return MutationType.FIVEFLIP;
+	}
+	
+	
+	@Override
+	public int getNumber() {
+		return 3;
 	}
 }

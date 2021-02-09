@@ -14,6 +14,16 @@ public class OneFlipMutation implements Mutation {
 
 	@Override
 	public String toString() {
-		return "1FLIP";
+		return getType().toString();
+	}
+
+	@Override
+	public MutationType getType() {
+		return MutationType.ONEFLIP;
+	}
+	
+	@Override
+	public int getNumber() {
+		return 1;
 	}
 }
