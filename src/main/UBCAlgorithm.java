@@ -13,7 +13,7 @@ public class UBCAlgorithm {
 	
 	private static final int nbArms = 4;
 	private int n; //size of individual
-	private Map<Integer, Double> sumRewards; //map typeMutation/rendement
+	private Map<Integer, Double> sumRewards; //map typeMutation/recompense
 	private Map<Integer, Integer> timesPicked;
 	double max_upper_bound;
 	int typeSelected;
@@ -43,7 +43,6 @@ public class UBCAlgorithm {
 	
 	public int run(int mutationNumber, int iteration, ArrayList<int[]> children) {
 		double upper_bound;
-//		typeSelected = 0;
 		max_upper_bound = 0.0;
 		
 		for(int i=0; i<nbArms; i++) {
@@ -71,7 +70,6 @@ public class UBCAlgorithm {
 			double childFitnessAfter= (double)Arrays.stream(child).sum()/(double)n*100;
 
 			meanRewardArm+= childFitnessAfter - childFitnessBefore; //compare fitness avant et apres mutation
-//			System.out.println(meanRewardArm);
 		}
 		meanRewardArm/=2; //moyenne des 2 reward de mutation
 		sumRewards.put(typeSelected, sumRewards.get(typeSelected)+meanRewardArm);

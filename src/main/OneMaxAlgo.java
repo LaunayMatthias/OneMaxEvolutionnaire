@@ -26,9 +26,6 @@ public class OneMaxAlgo {
 	private SelectionFactory selectionFactory = new SelectionFactory();
 	private Selection typeSelection = null;
 	
-//	private InsertionFactory insertionFactory = new InsertionFactory();
-//	private Insertion typeInsertion = null;
-	
 	private int popSize;
 
 	private ArrayList<int[]> population;
@@ -64,7 +61,6 @@ public class OneMaxAlgo {
 		typeCroisement = croisementFactory.getCroisement(croisement);
 		typeMutation = mutationFactory.getMutation(mutation);
 		typeSelection = selectionFactory.getSelection(selection);
-//		typeInsertion = insertionFactory.getInsertion(insertion);
 		
 		this.population = new ArrayList<int[]>();
 
@@ -158,27 +154,7 @@ public class OneMaxAlgo {
 		System.out.println("nbIt = "+iteration);
 	}
 	
-//	public int[] getBestFitted(ArrayList<int[]> population) {
-////		int maxFit = 0;
-////		int[] bestFitted = this.population.get(0); //initialized as worst fitted individual
-////		for(int[] individual : population) {
-////			int individualFitness= Arrays.stream(individual).sum();
-////			if(individualFitness > maxFit) {
-////				maxFit = individualFitness;
-////				bestFitted = individual;
-////			}
-////		}
-//		Collections.sort(population, new Comparator<int[]>() {
-//		    public int compare(int[] o1, int[] o2) {
-//		        return Arrays.stream(o1).sum() - Arrays.stream(o2).sum();
-//		    }
-//		});
-//		return population.get(population.size()-1);
-//	}
-//	
-	
 	public int bestIndividualFitnessEvaluation(ArrayList<int[]> population) {
-//		int[] bestFitted = getBestFitted(population);
 		int[] bestFitted = population.get(population.size()-1); //liste en ordre croissant de fitness -> dernier = best fitted
 		int bestFitness = Arrays.stream(bestFitted).sum();
 		if(bestFitness == this.n) {
